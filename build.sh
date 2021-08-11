@@ -3,16 +3,16 @@ TIME_NOW=`date +%Y/%m/%d-%H:%M:%S`
 BUILD_DATE=`date +%Y_%m_%d`
 BUILD_TAG=`date +%Y%m%d_%H%M%S`
 
-SOURCE="/home/jenkin/.jenkins/workspace/PRODUCT_VNPTID_DANGKY_Build_Image"
-BUILD_DIR="/opt/build_image_jenkin/IDP/PRODUCT/VNPTID/vnptid-register"
-LOGS="/home/jenkin/.deploy/IDP/PRODUCT/VNPTID/dangky/logs/dangky_${BUILD_DATE}.log"
-IMAGE="vnptid-dangky"
+SOURCE="/var/lib/jenkins/workspace/"
+BUILD_DIR="/opt/centos7tomcat/"
+LOGS=""
+IMAGE="centos7tomcat"
 
 echo "=== Remove old code in build folder ${BUILD_DIR}"
-rm -rf ${BUILD_DIR}/apache-tomcat-9.0.24/webapps/ROOT.war
+rm -rf ${BUILD_DIR}/apache-tomcat-9.0.50/webapps/*
 
 echo "=== Copy code to build folder ${BUILD_DIR}"
-cp ${SOURCE}/ROOT.war ${BUILD_DIR}/apache-tomcat-9.0.24/webapps/
+cp ${SOURCE}/sample.war ${BUILD_DIR}/apache-tomcat-9.0.50/webapps/
 
 echo "=== Prepare code to build"
 
@@ -22,8 +22,8 @@ docker build -t ${IMAGE} .
 
 echo "=== Push image to registry server"
 BUILD_TAG=`date +%Y%m%d_%H%M%S`
-docker tag ${IMAGE}:latest crelease.devops.vnpt.vn:10103/${IMAGE}:${BUILD_TAG}
-docker push crelease.devops.vnpt.vn:10103/${IMAGE}:${BUILD_TAG}
+docker tag ${IMAGE}:latest ngthanhdat/${IMAGE}:${BUILD_TAG}
+docker push ngthanhdat/${IMAGE}:${BUILD_TAG}
 
 echo "=================================================================" >> ${LOGS}
 TIME_NOW=`date +%Y/%m/%d-%H:%M:%S`
@@ -41,10 +41,11 @@ ids=$(docker ps -a -q)
 for id in $ids
 do
   echo "$id"
-  docker stop $id && docker rm $id
+  docker stop $id 
 done
 
 #đoạn này chạy lệnh run -dp 
+docker run -it -dp 443:443 ngthanhdat/${IMAGE}:${BUILD_TAG}
 
 echo "=== Finish run new image"
 
