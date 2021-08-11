@@ -3,8 +3,8 @@ TIME_NOW=`date +%Y/%m/%d-%H:%M:%S`
 BUILD_DATE=`date +%Y_%m_%d`
 BUILD_TAG=`date +%Y%m%d_%H%M%S`
 
-SOURCE="/var/lib/jenkins/workspace/"
-BUILD_DIR="/opt/centos7tomcat/"
+SOURCE="/var/lib/jenkins/workspace"
+BUILD_DIR="/opt/centos7tomcat"
 LOGS=""
 IMAGE="centos7tomcat"
 
