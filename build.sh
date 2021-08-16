@@ -5,7 +5,7 @@ BUILD_TAG=`date +%Y%m%d_%H%M%S`
 
 SOURCE="/var/lib/jenkins/workspace/sample-war"
 BUILD_DIR="/opt/centos7tomcat"
-LOGS=""
+LOGS="/var/lib/jenkins/workspace/sample-war/logs/sample_${BUILD_DATE}.log"
 IMAGE="centos7tomcat"
 
 echo "=== Remove old code in build folder ${BUILD_DIR}"
