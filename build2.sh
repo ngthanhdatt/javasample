@@ -45,7 +45,7 @@ do
 done
 
 #đoạn này chạy lệnh run -dp 
-docker run -it -dp 443:443 ngthanhdat/${IMAGE}:${BUILD_TAG}
+docker run -it -dp 9090:8080 ngthanhdat/${IMAGE}:${BUILD_TAG}
 
 echo "=== Finish run new image"
 
